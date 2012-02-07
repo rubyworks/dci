@@ -30,9 +30,9 @@
 # where data models (the banking accounts) are used through roles named
 # SourceAccount and # DestinationAccount. 
 #
-#     class Balance::Transfer < Context
-#       role :source_account      => Balance::TransferSource
-#       role :destination_account => Balance::TransferDestination
+#     class Account::Transfer < Context
+#       role :source_account      => Account::TransferWithdraw
+#       role :destination_account => Account::TransferDeposit
 #
 #       def initialize(source_account, destination_account)
 #         self.source_account      = source_account
@@ -75,6 +75,8 @@ class Context
   end
 
   # Returns a list of all roles in the context.
+  #
+  # @todo Return value should probably be cached.
   def roles
     list = []
     methods.each do |name|

@@ -22,17 +22,17 @@
 # In the money transfer use case, for example, the role methods in the
 # SourceAccount and DestinationAccount enact the actual transfer.
 #
-#     class Balance::TransferSource < Role
+#     class Account::TransferWithdraw < Role
 #       def transfer(amount)
 #         decrease_balance(amount)
-#         puts "Tranfered from account #{account_id} $#{amount}"
+#         log "Tranfered from account #{account_id} $#{amount}"
 #       end
 #     end
 #
-#     class Balance::TransferDestination < Role
+#     class Account::TransferDepoit < Role
 #       def transfer(amount)
 #         increase_balance(amount)
-#         puts "Tranfered into account #{account_id} $#{amount}"
+#         log "Tranfered into account #{account_id} $#{amount}"
 #       end
 #     end
 #
