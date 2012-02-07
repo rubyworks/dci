@@ -1,0 +1,11 @@
+.reap/digest
+.yardoc
+doc
+log
+pkg
+site
+tmp
+web
+wiki
+work/trash
+DEMO.md
