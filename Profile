@@ -14,7 +14,8 @@ authors [
 ]
 
 requirements [
-  'detroit (build)'
+  'detroit (build)',
+  'qed     (test)'
 ]
 
 resources(

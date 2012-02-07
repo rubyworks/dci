@@ -15,6 +15,10 @@ requirements:
   groups:
   - build
   development: true
+- name: qed
+  groups:
+  - test
+  development: true
 dependencies: []
 conflicts: []
 repositories:
