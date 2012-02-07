@@ -1,94 +1,53 @@
-require 'anise'
-require 'facets/functor'
-
-# Roll base class.
+# Interaction - The Interaction is "what the system does." The Interaction
+# is implemented as Roles which are played by objects at run time. These objects
+# combine the state and methods of a Data (domain) object with methods (but no
+# state, as Roles are stateless) from one or more Roles. In good DCI style,
+# a Role addresses another object only in terms of its (methodless) Role. There
+# is a special Role called `@self` which binds to the object playing the current
+# Role. Code within a Role method may invoke a method on `@self` and thereby
+# invoke a method of the Data part of the current object. One curious aspect
+# of DCI is that these bindings are guaranteed to be in place only at run time
+# (using a variety of approaches and conventions; C++ templates can be used to
+# guarantee that the bindings will succeed). This means that Interactions—the
+# Role methods—are generic. In fact, some DCI implementations use generics or
+# templates for Roles.
+#
+# A Role is a stateless programming construct that corresponds to the end user's
+# mental model of some entity in the system. A Role represents a collection of 
+# responsibilities. Whereas vernacular object-oriented programming speaks of
+# objects or classes as the loci of responsibilities, DCI ascribes them to Roles.
+# An object participating in a use case has responsibilities: those that it takes
+# on as a result of playing a particular Role.
+#
+# In the money transfer use case, for example, the role methods in the
+# SourceAccount and DestinationAccount enact the actual transfer.
+#
+#     class Balance::TransferSource < Role
+#       def transfer(amount)
+#         decrease_balance(amount)
+#         puts "Tranfered from account #{account_id} $#{amount}"
+#       end
+#     end
+#
+#     class Balance::TransferDestination < Role
+#       def transfer(amount)
+#         increase_balance(amount)
+#         puts "Tranfered into account #{account_id} $#{amount}"
+#       end
+#     end
+#
 class Role
+
+  #
   def initialize(player)
-    @player = player
+    @self = player
   end
-  # should be public send ?
+
+  #
+  # @todo Should use #public_send?
   def method_missing(s, *a, &b)
-    @player.__send__(s, *a, &b)
+    @self.__send__(s, *a, &b)
   end
+
 end
-
-# Context (UseCase) base class.
-class Context
-  include Anise
-  attr :roles
-  def self.cast(player, role)
-    attr player, :role => role
-  end
-  def initialize
-    @roles = []
-  end
-  def stage
-    self.class.annotations.each do |player, anns|
-      roles << anns[:role].new(__send__(player))
-    end
-    Functor.new do |fn, *a, &b|
-      roles.each{ |player| player.__send__(fn, *a, &b) }
-    end
-  end
-end
-
-
-# --- example ---
-
-# Mixins are fixed rolls.
-module Balance
-  def initialize
-    @balance = 0
-  end
-  def availableBalance
-    @balance
-  end
-  def increaseBalance(amount)
-    @balance += amount
-  end
-  def decreaseBalance(amount)
-    @balance -= amount
-  end
-end
-
-#
-class Balance::TransferSource < Role
-  def transfer(amount)
-    decreaseBalance(amount)
-    puts "Tranfered from account #{__id__} $#{amount}"
-  end
-end
-
-#
-class Balance::TransferDestination < Role
-  def transfer(amount)
-    increaseBalance(amount)
-    puts "Tranfered to account #{__id__} $#{amount}"
-  end
-end
-
-# We can think of a context as setting a scene.
-class Balance::Transfer < Context
-  cast :source_account, Balance::TransferSource
-  cast :destination_account, Balance::TransferDestination
-  def initialize(source_account, destination_account)
-    super()
-    @source_account      = source_account
-    @destination_account = destination_account
-  end
-  def transfer(amount)
-    stage.transfer(amount)
-  end
-end
-
-class Account
-  # An account by definition has a balance.
-  include Balance
-end
-
-acct1 = Account.new
-acct2 = Account.new
-
-Balance::Transfer.new(acct1, acct2).transfer(50)
-
 
