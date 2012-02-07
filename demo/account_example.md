@@ -28,17 +28,17 @@ a balance of $100. (We're generous like that.)
 We set up two Roles, one role for withdrawing money from an account,
 and one for depositing money into an account.
 
-    class Balance::TransferWithdraw < Role
+    class Account::TransferWithdraw < Role
       def transfer(amount)
         decrease_balance(amount)
-        puts "Tranfered $#{amount} from account ##{account_id}."
+        #log "Tranfered $#{amount} from account ##{account_id}."
       end
     end
 
-    class Balance::TransferDeposit < Role
+    class Account::TransferDeposit < Role
       def transfer(amount)
         increase_balance(amount)
-        puts "Tranfered $#{amount} into account ##{account_id}."
+        #log "Tranfered $#{amount} into account ##{account_id}."
       end
     end
 
@@ -46,9 +46,9 @@ Now we create a Context which will assign accounts to the roles
 and used to perfomr the transfer.
 
     # We can think of a context as setting a scene.
-    class Balance::Transfer < Context
-      role :source_account      => Balance::TransferWithdraw
-      role :destination_account => Balance::TransferDeposit
+    class Account::Transfer < Context
+      role :source_account      => Account::TransferWithdraw
+      role :destination_account => Account::TransferDeposit
 
       def initialize(source_account, destination_account)
         self.source_account      = source_account
@@ -56,11 +56,9 @@ and used to perfomr the transfer.
       end
 
       def transfer(amount)
-        begin
-          puts "Begin transfer."
-          roles.each{ |role| role.transfer(amount) }
-        end
-        puts "Transfer complete."
+        #log "Begin transfer."
+        roles.each{ |role| role.transfer(amount) }
+        #log "Transfer complete."
       end
     end
 
@@ -69,7 +67,7 @@ Let's give it a try.
     acct1 = Account.new(000100)
     acct2 = Account.new(000200)
 
-    Balance::Transfer.new(acct1, acct2).transfer(50)
+    Account::Transfer.new(acct1, acct2).transfer(50)
 
     acct1.available_balance  #=>  50
     acct2.available_balance  #=> 150
