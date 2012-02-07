@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+version File.read('VERSION').strip
+
+name    "dci"
+title   "DCI"
+summary "DCI for Ruby"
+created '2011-03-04'
+
+description "Faithful DCI framework for Ruby application development."
+
+authors [
+  'Thomas Sawyer <transfire@gmail.com>'
+]
+
+requirements [
+  'detroit (build)'
+]
+
+resources(
+  'home' => 'https://rubyworks.github.com/dci',
+  'code' => 'https://github.com/rubyworks/dci',
+  'mail' => 'http://groups.google.com/groups/rubyworks-mailinglist'
+)
+
+repositories(
+  'upstream' => 'git@github.com:rubyworks/dci.git'
+)
+
+copyrights [
+  '2012 Thomas Sawyer (BSD-2-Clause)'
+]
+
+organization 'Rubyworks'
+

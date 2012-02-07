@@ -1,0 +1,7 @@
+--title "DCI"
+--readme README.md
+--protected
+--private
+lib
+-
+[A-Z]*.*
