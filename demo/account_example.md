@@ -43,9 +43,8 @@ and one for depositing money into an account.
     end
 
 Now we create a Context which will assign accounts to the roles
-and used to perfomr the transfer.
+and used to perform the transfer.
 
-    # We can think of a context as setting a scene.
     class Account::Transfer < DCI::Context
       role :source_account      => Account::TransferWithdraw
       role :destination_account => Account::TransferDeposit
