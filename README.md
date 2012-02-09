@@ -9,16 +9,16 @@
 ## Description
 
 The DCI library for Ruby is a fairly faithful implementation of the DCI
-concpets developed by Trygve Reenskaug, Reenskaug and James O. Coplien.
+concepts developed by Trygve Reenskaug, Reenskaug, and James O. Coplien.
 
-It define two reusable base classes, the Role and Context. The best way
+It defines two reusable base classes, the Role and Context. The best way
 to understand their usage is to look at the QED documentation provided
 ([for example](https://github.com/rubyworks/dci/blob/master/demo/account_example.md)).
 
 
 ## Installation
 
-The ususal RubyGems install procedure:
+The usual RubyGems install procedure:
 
     $ gem install dci
 
