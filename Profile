@@ -19,8 +19,8 @@ requirements [
 ]
 
 resources(
-  'home' => 'https://rubyworks.github.com/dci',
-  'code' => 'https://github.com/rubyworks/dci',
+  'home' => 'http://rubyworks.github.com/dci',
+  'code' => 'http://github.com/rubyworks/dci',
   'mail' => 'http://groups.google.com/groups/rubyworks-mailinglist'
 )
 
