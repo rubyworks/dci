@@ -28,14 +28,14 @@ a balance of $100. (We're generous like that.)
 We set up two Roles, one role for withdrawing money from an account,
 and one for depositing money into an account.
 
-    class Account::TransferWithdraw < Role
+    class Account::TransferWithdraw < DCI::Role
       def transfer(amount)
         decrease_balance(amount)
         #log "Tranfered $#{amount} from account ##{account_id}."
       end
     end
 
-    class Account::TransferDeposit < Role
+    class Account::TransferDeposit < DCI::Role
       def transfer(amount)
         increase_balance(amount)
         #log "Tranfered $#{amount} into account ##{account_id}."
@@ -46,7 +46,7 @@ Now we create a Context which will assign accounts to the roles
 and used to perfomr the transfer.
 
     # We can think of a context as setting a scene.
-    class Account::Transfer < Context
+    class Account::Transfer < DCI::Context
       role :source_account      => Account::TransferWithdraw
       role :destination_account => Account::TransferDeposit
 
