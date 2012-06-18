@@ -12,13 +12,15 @@ replacements: []
 alternatives: []
 requirements:
 - name: detroit
+  version: ! '>= 0'
   groups:
-  - build
-  development: true
+  - :development
+  - :build
 - name: qed
+  version: ! '>= 0'
   groups:
-  - test
-  development: true
+  - :test
+  - :development
 dependencies: []
 conflicts: []
 repositories:
@@ -40,4 +42,4 @@ summary: DCI for Ruby
 created: '2011-03-04'
 description: Faithful DCI framework for Ruby application development.
 organization: Rubyworks
-date: '2012-02-08'
+date: '2012-02-19'

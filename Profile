@@ -13,10 +13,10 @@ authors [
   'Thomas Sawyer <transfire@gmail.com>'
 ]
 
-requirements [
-  'detroit (build)',
-  'qed     (test)'
-]
+#requirements [
+#  'detroit (build)',
+#  'qed     (test)'
+#]
 
 resources(
   'home' => 'http://rubyworks.github.com/dci',
